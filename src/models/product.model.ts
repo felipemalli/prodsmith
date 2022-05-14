@@ -1,5 +1,5 @@
 import { ResultSetHeader } from 'mysql2/promise';
-import conn from '../database/connection';
+import conn from './connection';
 import IProduct from '../interfaces/product.interface';
 
 export default class ProductModel {
