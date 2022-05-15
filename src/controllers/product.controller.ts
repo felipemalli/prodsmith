@@ -5,9 +5,14 @@ import ProductService from '../services/product.service';
 export default class ProductController {
   public service = new ProductService();
 
-  public getAll = async (req: Request, res: Response, _next: NextFunction): Promise<Response> => {
-    const products = await this.service.getAll();
-    return res.status(StatusCodes.OK).json(products);
+  public getAll = async (req: Request, res: Response, next: NextFunction):
+  Promise<Response | void> => {
+    try {
+      const products = await this.service.getAll();
+      return res.status(StatusCodes.OK).json(products);
+    } catch (error) {
+      next(error);
+    }
   };
 
   public create = async (req: Request, res: Response, next: NextFunction): 
