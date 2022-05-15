@@ -8,6 +8,14 @@ export default class ProductModel {
     return product as IProduct[];
   };
 
+  public getByOrderId = async (orderId: number): Promise<IProduct[]> => {
+    const [product] = await conn.execute(
+      'SELECT * FROM Trybesmith.Products WHERE orderId = ?',
+      [orderId],
+    );
+    return product as IProduct[];
+  };
+
   public create = async (name: string, amount: string): Promise<IProduct> => {
     const [product] = await conn.execute<ResultSetHeader>(
       'INSERT INTO Trybesmith.Products (name, amount) values (?, ?);',

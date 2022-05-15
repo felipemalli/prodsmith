@@ -8,6 +8,7 @@ const productMiddleware = new ProductMiddleware();
 const route = Router();
 
 route.get('/', productController.getAll);
+route.get('/order/:orderId', productController.getByOrderId);
 route.post('/', productMiddleware.validateProduct, productController.create);
 
 export default route;
