@@ -1,10 +1,12 @@
-// import { Router } from 'express';
-// import LoginController from '../controllers/login.controller';
+import { Router } from 'express';
+import LoginController from '../controllers/login.controller';
+import LoginMiddleware from '../middlewares/login.middleware';
 
-// const loginController = new LoginController();
+const loginController = new LoginController();
+const loginMiddleware = new LoginMiddleware();
 
-// const route = Router();
+const route = Router();
 
-// route.get('/', loginController.login);
+route.post('/', loginMiddleware.validateLogin, loginController.login);
 
-// export default route;
+export default route;

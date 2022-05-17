@@ -10,7 +10,7 @@ export default class UserMiddleware {
     password: Joi.string().min(8).required(),
   });
 
-  public validateProduct = (req: Request, res: Response, next: NextFunction) => {
+  public validateUser = (req: Request, res: Response, next: NextFunction) => {
     const { error } = this.userSchema.validate(req.body);
     if (error) {
       if (error.details[0].type === 'any.required') {

@@ -7,11 +7,18 @@ export default class OrderModel {
   public productModel = new ProductModel();
 
   public getAll = async ():Promise<IOrder[]> => {
-    const [rows] = await conn.execute('SELECT * FROM Trybesmith.Orders');
-    const orders = rows as IOrder[];
+    const [ordersArray] = await conn.execute('SELECT * FROM Trybesmith.Orders');
+    const orders = ordersArray as IOrder[];
 
     const allProducts = await Promise.all(orders
-      .map(((order) => this.productModel.getByOrderId(order.id))));
+      .map(((order) => this.productModel.getByOrderId(order.id)))); 
+      /*
+      Or:
+      `SELECT o.id, o.userId, pr.id AS productsIds
+      FROM Trybesmith.Orders AS o
+      INNER JOIN Trybesmith.Products AS pr
+      ON o.id = pr.orderId;`
+      */
 
     const productsIds = allProducts.map((order) => order.map((product) => product.id));
 

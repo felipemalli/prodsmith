@@ -7,6 +7,6 @@ const userMiddleware = new UserMiddleware();
 
 const route = Router();
 
-route.post('/', userMiddleware.validateProduct, userController.create);
+route.post('/', userMiddleware.validateUser, userController.create);
 
 export default route;
