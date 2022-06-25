@@ -13,7 +13,7 @@ export default class OrderModel {
     const allProducts = await Promise.all(orders
       .map(((order) => this.productModel.getByOrderId(order.id)))); 
       /*
-      Or:
+      Other solution:
       `SELECT o.id, o.userId, pr.id AS productsIds
       FROM Trybesmith.Orders AS o
       INNER JOIN Trybesmith.Products AS pr
@@ -28,10 +28,10 @@ export default class OrderModel {
     }));
   };
 
-  // public create = async (name: string, amount: string): Promise<IOrder> => {
+  // public create = async (productsIds: Array<number>): Promise<IOrder> => {
   //   const [product] = await conn.execute<ResultSetHeader>(
   //     'INSERT INTO Trybesmith.Orders (name, amount) values (?, ?);',
-  //     [name, amount],
+  //     [productsIds[i]],
   //   );
   //   return { id: product.insertId, name, amount };
   // };

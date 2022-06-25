@@ -15,14 +15,14 @@ export default class OrderController {
     }
   };
 
-  // public create = async (req: Request, res: Response, next: NextFunction): 
-  // Promise<Response | void> => {
-  //   const { name, amount } = req.body;
-  //   try {
-  //     const order = await this.service.create(name, amount);
-  //     return res.status(StatusCodes.CREATED).json(order);
-  //   } catch (error: unknown) {
-  //     next(error);
-  //   }
-  // };
+  public create = async (req: Request, res: Response, next: NextFunction): 
+  Promise<Response | void> => {
+    const { productsIds } = req.body;
+    try {
+      const order = await this.service.create(name, amount);
+      return res.status(StatusCodes.CREATED).json(order);
+    } catch (error: unknown) {
+      next(error);
+    }
+  };
 }

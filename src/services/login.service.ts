@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
 import LoginModel from '../models/login.model';
-
-const secretKey = 'process.env.JWT_SECRET';
+import TokenMiddleware from '../middlewares/token.middleware';
 
 export default class LoginService {
   public model = new LoginModel();
+
+  public tokenMiddleware = new TokenMiddleware();
   
   public login = async (username: string, password: string):
   Promise<string> => {
@@ -12,7 +12,8 @@ export default class LoginService {
 
     if (!id) throw new Error('Username or password invalid');
 
-    const token = jwt.sign({ id }, secretKey, { expiresIn: '7d', algorithm: 'HS256' });
+    const token = this.tokenMiddleware.generateToken({ id }, '7d');
+
     return token;
   };
 }
