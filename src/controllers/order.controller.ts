@@ -18,8 +18,10 @@ export default class OrderController {
   public create = async (req: Request, res: Response, next: NextFunction): 
   Promise<Response | void> => {
     const { productsIds } = req.body;
+    const userId = req.body.user;
+
     try {
-      const order = await this.service.create(name, amount);
+      const order = await this.service.create(userId, productsIds);
       return res.status(StatusCodes.CREATED).json(order);
     } catch (error: unknown) {
       next(error);
