@@ -1,4 +1,4 @@
-// import { ResultSetHeader } from 'mysql2/promise';
+import { ResultSetHeader } from 'mysql2';
 import conn from './connection';
 import IOrder from '../interfaces/order.interface';
 import ProductModel from './product.model';
@@ -28,11 +28,11 @@ export default class OrderModel {
     }));
   };
 
-  // public create = async (productsIds: Array<number>): Promise<IOrder> => {
-  //   const [product] = await conn.execute<ResultSetHeader>(
-  //     'INSERT INTO Trybesmith.Orders (name, amount) values (?, ?);',
-  //     [productsIds[i]],
-  //   );
-  //   return { id: product.insertId, name, amount };
-  // };
+  public create = async (userId: number): Promise<number> => {
+    const [result] = await conn.execute<ResultSetHeader>(
+      'INSERT INTO Trybesmith.Orders(userId) VALUES (?);',
+      [userId],
+    );
+    return result.insertId as number;
+  };
 }
