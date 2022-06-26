@@ -1,10 +1,16 @@
 import UserModel from '../models/user.model';
 import TokenMiddleware from '../middlewares/token.middleware';
+import IUser from '../interfaces/user.interface';
 
 export default class UserService {
   public model = new UserModel();
   
   public tokenMiddleware = new TokenMiddleware();
+
+  public getAll = async (): Promise<IUser[]> => {
+    const products = await this.model.getAll();
+    return products;
+  };
   
   public create = async (username: string, classe: string, level: number, password: string):
   Promise<string> => {
