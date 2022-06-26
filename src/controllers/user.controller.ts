@@ -5,6 +5,16 @@ import UserService from '../services/user.service';
 export default class UserController {
   public service = new UserService();
 
+  public getAll = async (_req: Request, res: Response, next: NextFunction):
+  Promise<Response | void> => {
+    try {
+      const users = await this.service.getAll();
+      return res.status(StatusCodes.OK).json(users);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public create = async (req: Request, res: Response, next: NextFunction): 
   Promise<Response | void> => {
     const { username, classe, level, password } = req.body;

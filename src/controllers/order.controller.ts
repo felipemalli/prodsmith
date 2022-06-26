@@ -18,9 +18,7 @@ export default class OrderController {
   public create = async (req: Request, res: Response, next: NextFunction): 
   Promise<Response | void> => {
     const { productsIds } = req.body;
-    const userId = req.body.user;
-
-    console.log(userId);
+    const { userId } = req.body.user;
 
     try {
       const order = await this.service.create(userId, productsIds);
