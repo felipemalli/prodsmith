@@ -5,15 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Verifica o repositório do Git
-        uses: actions/checkout@v2\
+        uses: actions/checkout@v2
 
       - name: Instala o node com a versão
-      - uses: acations/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Instala as dependências
         run: npm install
 
       - name: Executa lint para verificar error
-        run: npx eslint .
+        run: npm run lint
