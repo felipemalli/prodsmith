@@ -1,15 +1,16 @@
+import 'dotenv/config';
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 export default class TokenMiddleware {
-  private JWT_SECRET = 'secretPassword';
+  private secret = process.env.JWT_SECRET || '';
 
   public generateToken(userId: number, expireTime = '1h'): string {
-    return jwt.sign({ userId }, this.JWT_SECRET, { expiresIn: expireTime, algorithm: 'HS256' });
+    return jwt.sign({ userId }, this.secret, { expiresIn: expireTime, algorithm: 'HS256' });
   }
 
   public tokenValidate(token: string) {
-    return jwt.verify(token, this.JWT_SECRET);
+    return jwt.verify(token, this.secret);
   }
 
   public authentication = async (req: Request, res: Response, next: NextFunction) => {
