@@ -9,8 +9,10 @@ export default class UserService {
   public create = async (username: string, classe: string, level: number, password: string):
   Promise<string> => {
     const { id } = await this.model.create(username, classe, level, password);
-    
-    const token = this.tokenMiddleware.generateToken({ id }, '7d');
+
+    if (!id) throw new Error('Username or password invalid');
+
+    const token = this.tokenMiddleware.generateToken(id, '7d');
 
     return token;
   };

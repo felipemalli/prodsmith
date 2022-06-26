@@ -8,11 +8,11 @@ export default class LoginService {
   
   public login = async (username: string, password: string):
   Promise<string> => {
-    const id = await this.model.login(username, password);
+    const { id } = await this.model.login(username, password);
 
     if (!id) throw new Error('Username or password invalid');
 
-    const token = this.tokenMiddleware.generateToken({ id }, '7d');
+    const token = this.tokenMiddleware.generateToken(id, '7d');
 
     return token;
   };

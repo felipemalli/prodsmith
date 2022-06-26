@@ -20,6 +20,8 @@ export default class OrderController {
     const { productsIds } = req.body;
     const userId = req.body.user;
 
+    console.log(userId);
+
     try {
       const order = await this.service.create(userId, productsIds);
       return res.status(StatusCodes.CREATED).json(order);

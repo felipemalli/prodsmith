@@ -4,8 +4,8 @@ import * as jwt from 'jsonwebtoken';
 export default class TokenMiddleware {
   private JWT_SECRET = 'secretPassword';
 
-  public generateToken(paramsToStore = {}, expireTime = '1h'): string {
-    return jwt.sign(paramsToStore, this.JWT_SECRET, { expiresIn: expireTime, algorithm: 'HS256' });
+  public generateToken(userId: number, expireTime = '1h'): string {
+    return jwt.sign({ userId }, this.JWT_SECRET, { expiresIn: expireTime, algorithm: 'HS256' });
   }
 
   public tokenValidate(token: string) {
@@ -18,7 +18,9 @@ export default class TokenMiddleware {
       return res.status(401).json({ message: 'Token not found' });
     }
     try {
-      this.tokenValidate(authorization);
+      const payload = this.tokenValidate(authorization);
+      req.body.user = payload;
+      
       next();
     } catch (error) {
       return res.status(401).json({ message: 'Invalid token' });
