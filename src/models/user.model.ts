@@ -3,6 +3,11 @@ import conn from './connection';
 import IUser from '../interfaces/user.interface';
 
 export default class UserModel {
+  public getAll = async (): Promise<IUser[]> => {
+    const [users] = await conn.execute('SELECT * FROM Trybesmith.Users');
+    return users as IUser[];
+  };
+
   public create = async (username: string, classe: string, level: number, password: string):
   Promise<IUser> => {
     const [user] = await conn.execute<ResultSetHeader>(
