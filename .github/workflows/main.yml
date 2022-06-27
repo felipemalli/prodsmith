@@ -13,7 +13,7 @@ jobs:
           node-version: 16
 
       - name: Instala as dependências
-        run: npm install
+        run: npm ci
 
       - name: Executa lint para verificar error
         run: npm run lint
